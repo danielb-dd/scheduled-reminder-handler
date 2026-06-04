@@ -1,7 +1,7 @@
 {
     "name": "douglassdigital/schedulereminderhandler",
     "description": "CiviCRM extension: scheduled reminder staleness guard, SMTP auto-retry, and non-persistent mailer fix.",
-    "license": "AGPL-3.0",
+    "license": "AGPL-3.0-or-later",
     "type": "civicrm-extension",
     "require": {
         "php": ">=7.4"
@@ -13,6 +13,9 @@
         "test": "phpunit"
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "platform": {
+            "php": "7.4"
+        }
     }
 }
