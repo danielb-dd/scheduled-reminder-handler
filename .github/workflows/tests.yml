@@ -1,0 +1,33 @@
+name: unit tests
+
+# Tier 1 (pure unit) tests — no CiviCRM bootstrap, no database — so they run
+# in seconds on every push and PR.
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+
+jobs:
+  phpunit:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version: ['7.4', '8.1', '8.2', '8.3']
+    name: PHP ${{ matrix.php-version }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          tools: composer
+          coverage: none
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-interaction
+
+      - name: Run unit tests
+        run: vendor/bin/phpunit
